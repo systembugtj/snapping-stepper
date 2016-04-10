@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -172,6 +173,23 @@ public class SnappingStepper extends RelativeLayout implements View.OnTouchListe
     }
 
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            {
+                this.setValue(Math.max(minValue, value - valueSlowStep));
+                return true;
+            }
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            {
+                this.setValue(Math.min(maxValue, value + valueSlowStep));
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
