@@ -172,19 +172,21 @@ public class SnappingStepper extends RelativeLayout implements View.OnTouchListe
         updateRunnable = new UpdateRunnable(this);
     }
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_LEFT:
             {
                 this.setValue(Math.max(minValue, value - valueSlowStep));
+                if (listener != null)
+                    listener.onValueChange(this, value);
                 return true;
             }
             case KeyEvent.KEYCODE_DPAD_RIGHT:
             {
                 this.setValue(Math.min(maxValue, value + valueSlowStep));
+                if (listener != null)
+                    listener.onValueChange(this, value);
                 return true;
             }
         }
